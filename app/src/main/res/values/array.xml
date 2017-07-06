@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="out">
+        <item>教育网</item>
+        <item>电信网</item>
+        <item>联通网</item>
+        <item>电信网2</item>
+        <item>联通网2</item>
+        <item>电信网3</item>
+        <item>联通网3</item>
+        <item>教育网2</item>
+        <item>移动测试</item>
+    </string-array>
+    <string-array name="time">
+        <item>1小时</item>
+        <item>4小时</item>
+        <item>11小时</item>
+        <item>14小时</item>
+        <item>永久</item>
+    </string-array>
+</resources>

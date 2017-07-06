@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.cheny.ustcwlt.MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ip"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/textView"
+        android:layout_marginStart="60dp" />
+
+    <TextView
+        android:id="@+id/IP_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        app:layout_constraintLeft_toRightOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp" />
+
+    <TextView
+        android:id="@+id/out_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/out"
+        android:layout_marginLeft="52dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="45dp"
+        app:layout_constraintTop_toBottomOf="@+id/Auth_textView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="45dp"
+        app:layout_constraintTop_toBottomOf="@+id/out_textView"
+        android:layout_marginLeft="52dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Spinner
+        android:id="@+id/out_spinner"
+        android:layout_width="181dp"
+        android:layout_height="29dp"
+        android:layout_marginLeft="34dp"
+        app:layout_constraintLeft_toRightOf="@+id/out_textView"
+        android:entries="@array/out"
+        android:layout_marginStart="34dp"
+        app:layout_constraintTop_toTopOf="@+id/out_textView"/>
+
+    <Spinner
+        android:id="@+id/time_spinner"
+        android:layout_width="181dp"
+        android:layout_height="29dp"
+        app:layout_constraintLeft_toRightOf="@+id/textView3"
+        android:layout_marginStart="34dp"
+        android:layout_marginLeft="34dp"
+        android:entries="@array/time"
+        app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+    <Button
+        android:id="@+id/Conn_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/connect"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="329dp"
+        android:layout_marginLeft="60dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/DisConn_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/disconnect"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Conn_button" />
+
+    <TextView
+        android:id="@+id/Status_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="52dp"
+        android:text="@string/status"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/exit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/exit"
+        android:layout_marginLeft="148dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="400dp" />
+
+    <TextView
+        android:id="@+id/status_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintLeft_toRightOf="@+id/Status_textView"
+        app:layout_constraintTop_toTopOf="@+id/Status_textView" />
+
+    <TextView
+        android:id="@+id/Auth_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/authority"
+        app:layout_constraintTop_toBottomOf="@+id/Status_textView"
+        android:layout_marginLeft="52dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/auth_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/Auth_textView"
+        app:layout_constraintLeft_toRightOf="@+id/Auth_textView"
+        android:layout_marginLeft="52dp" />
+
+</android.support.constraint.ConstraintLayout>
