@@ -73,7 +73,19 @@ public class MainActivity extends AppCompatActivity {
         Cookie_rn = bundle.getString("Cookie");
         ip_View.setText(bundle.getString("IP"));
         status_View.setText(bundle.getString("status"));
-        auth_View.setText(bundle.getString("authority"));
+        String strtemp = bundle.getString("authority");
+        auth_View.setText(strtemp);
+        if(strtemp.equals("您没有使用网络通对外连接的权限")
+                || strtemp.equals("错误")){
+            outSpi.setEnabled(false);
+            timeSpi.setEnabled(false);
+            connButton.setEnabled(false);
+            disConnButton.setEnabled(false);
+        }
+        if(strtemp.equals("不是科大校内IP地址，\n无法使用网络通账号设置权限。")){
+            connButton.setEnabled(false);
+            disConnButton.setEnabled(false);
+        }
 
         connButton.setOnClickListener(new View.OnClickListener() {
             @Override

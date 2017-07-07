@@ -59,10 +59,11 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg){
             super.handleMessage(msg);
+            String Str;
             switch (msg.what){
                 case 0:
-                    String responstr = (String)msg.obj;
-                    ip_View.setText(responstr);
+                    Str = (String)msg.obj;
+                    ip_View.setText(Str);
                     break;
                 default:
                     break;
@@ -154,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
                 Cookie_rn = Cookie[0].getValue();
                 String entityStr = getEntityStr(httpResponse);
                 Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                intent.putExtra("IP", getIp(entityStr));
+                intent.putExtra("IP", getIp(entityStr, 1));
                 intent.putExtra("status", getStatus(entityStr));
                 intent.putExtra("authority", getAuthority(entityStr));
                 intent.putExtra("Cookie", Cookie_rn);
@@ -174,16 +175,27 @@ public class LoginActivity extends AppCompatActivity {
         if(matcher.find()){
             return matcher.group(4).toString();
         }
-        return "错误";
+        return "";
     }
 
     private String getAuthority(String Str){
         String pattern = "(当前IP地址)(\\d+\\.\\d+\\.\\d+\\.\\d+)(状态:<br>出口:\\s)(\\S+)(<br>权限:\\s)(\\S\\S)";
         Pattern pattern1 = Pattern.compile(pattern);
         Matcher matcher = pattern1.matcher(Str);
-        Message msg = new Message();
         if(matcher.find()){
             return matcher.group(6).toString();
+        }
+        pattern = "(您没有使用网络通对外连接的权限)";
+        pattern1 = Pattern.compile(pattern);
+        matcher = pattern1.matcher(Str);
+        if(matcher.find()){
+            return matcher.group(0).toString();
+        }
+        pattern = "(您使用的IP地址)(\\d+\\.\\d+\\.\\d+\\.\\d+)(不是科大校内IP地址，<br>无法使用网络通账号设置权限。)";
+        pattern1 = Pattern.compile(pattern);
+        matcher = pattern1.matcher(Str);
+        if(matcher.find()){
+            return matcher.group(3).toString().replace("<br>","\n");
         }
         return "错误";
     }
@@ -208,15 +220,47 @@ public class LoginActivity extends AppCompatActivity {
         return responseStr;
     }
 
-    private String getIp(String Str){
-        //String pattern = "(name=ip\\s+value=)(\\d+\\.\\d+\\.\\d+\\.\\d+)";
-        String pattern = "(\\d+\\.\\d+\\.\\d+\\.\\d+)";
+    private String getIp(String Str, int type){
+        String pattern = "";
+        switch (type){
+            case 0: {
+                pattern = "(name=ip\\s+value=)(\\d+\\.\\d+\\.\\d+\\.\\d+)";
+                Pattern pattern1 = Pattern.compile(pattern);
+                Matcher matcher = pattern1.matcher(Str);
+                if(matcher.find()){
+                    return matcher.group(2);
+                }
+                break;
+            }
+            case 1: {
+                pattern = "(当前IP地址)(\\d+\\.\\d+\\.\\d+\\.\\d+)(状态:<br>出口:\\s)(\\S+)(<br>权限:\\s)(\\S\\S)";
+                Pattern pattern1 = Pattern.compile(pattern);
+                Matcher matcher = pattern1.matcher(Str);
+                if(matcher.find()){
+                    return matcher.group(2);
+                }
+                pattern = "(您使用的IP地址)(\\d+\\.\\d+\\.\\d+\\.\\d+)(不是科大校内IP地址，<br>无法使用网络通账号设置权限。)";
+                pattern1 = Pattern.compile(pattern);
+                matcher = pattern1.matcher(Str);
+                if(matcher.find()){
+                    return matcher.group(2).toString();
+                }
+                break;
+            }
+            default:
+                break;
+        }
+        return "";
+    }
+
+    private boolean iswlt(String Str){
+        String pattern = "(非科大IP地址)";
         Pattern pattern1 = Pattern.compile(pattern);
         Matcher matcher = pattern1.matcher(Str);
         if(matcher.find()){
-            return matcher.group(0);
+            return false;
         }
-        return "错误";
+        return true;
     }
 
     private class wltConn extends Thread{
@@ -234,11 +278,16 @@ public class LoginActivity extends AppCompatActivity {
             if(httpResponse.getStatusLine().getStatusCode() == 200){
                 Message msg = new Message();
                 String str = getEntityStr(httpResponse);
-                msg.obj = getIp(str);
+                String objStr = getIp(str, 0);
+                //不是科大IP
+                if(!iswlt(str)){
+                    objStr += "（非科大IP地址）";
+                }
+                msg.obj = objStr;
                 handler.sendMessage(msg);
             }
             else{
-                Toast.makeText(LoginActivity.this,"无法连接到网络通",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this,"无法连接到网络通,请检查网络状态",Toast.LENGTH_SHORT).show();
                 Looper.loop();
                 Message msg = new Message();
                 msg.obj = "0.0.0.0";
