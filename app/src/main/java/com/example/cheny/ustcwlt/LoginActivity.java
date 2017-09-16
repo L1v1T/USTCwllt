@@ -179,15 +179,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private String getAuthority(String Str){
-        String pattern = "(当前IP地址)(\\d+\\.\\d+\\.\\d+\\.\\d+)(状态:<br>出口:\\s)(\\S+)(<br>权限:\\s)(\\S\\S)";
+        //先检查是否拥有连接权限，再检查是否是科大ip，都无错误再提取ip
+        String pattern = "(您没有使用网络通对外连接的权限)";
         Pattern pattern1 = Pattern.compile(pattern);
         Matcher matcher = pattern1.matcher(Str);
-        if(matcher.find()){
-            return matcher.group(6).toString();
-        }
-        pattern = "(您没有使用网络通对外连接的权限)";
-        pattern1 = Pattern.compile(pattern);
-        matcher = pattern1.matcher(Str);
         if(matcher.find()){
             return matcher.group(0).toString();
         }
@@ -196,6 +191,12 @@ public class LoginActivity extends AppCompatActivity {
         matcher = pattern1.matcher(Str);
         if(matcher.find()){
             return matcher.group(3).toString().replace("<br>","\n");
+        }
+        pattern = "(当前IP地址)(\\d+\\.\\d+\\.\\d+\\.\\d+)(状态:<br>出口:\\s)(\\S+)(<br>权限:\\s)(\\S\\S)";
+        pattern1 = Pattern.compile(pattern);
+        matcher = pattern1.matcher(Str);
+        if(matcher.find()){
+            return matcher.group(6).toString();
         }
         return "错误";
     }
