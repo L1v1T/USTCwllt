@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new wltLogout().start();
+                finish();
             }
         });
     }
@@ -276,28 +276,6 @@ public class MainActivity extends AppCompatActivity {
             }
             else{
                 Toast.makeText(MainActivity.this,"设置失败",Toast.LENGTH_SHORT).show();
-                Looper.loop();
-            }
-        }
-    }
-
-    private class wltLogout extends Thread{
-        public void run(){
-            String urlstr = "http://wlt.ustc.edu.cn/cgi-bin/ip?cmd=logout";
-            httpGet = new HttpGet(urlstr);
-            httpGet.setHeader("Cookie", Cookie_rn);
-            httpClient = new DefaultHttpClient();
-            try{
-                httpResponse = httpClient.execute(httpGet);
-            }
-            catch (IOException e){
-                e.printStackTrace();
-            }
-            if(httpResponse.getStatusLine().getStatusCode() == 200){
-                finish();
-            }
-            else{
-                Toast.makeText(MainActivity.this,"退出失败",Toast.LENGTH_SHORT).show();
                 Looper.loop();
             }
         }

@@ -11,5 +11,5 @@
     <string name="disconnect">断开连接</string>
     <string name="status">状态</string>
     <string name="authority">权限</string>
-    <string name="exit">退出登陆</string>
+    <string name="exit">返回</string>
 </resources>
