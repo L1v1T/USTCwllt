@@ -244,7 +244,7 @@ public class LoginActivity extends AppCompatActivity {
                 pattern1 = Pattern.compile(pattern);
                 matcher = pattern1.matcher(Str);
                 if(matcher.find()){
-                    return matcher.group(2).toString();
+                    return matcher.group(2);
                 }
                 break;
             }
@@ -306,7 +306,7 @@ public class LoginActivity extends AppCompatActivity {
         if(svCheck.isChecked()){
             editor.putString("userpw",pw_Edit.getText().toString());
         }
-        editor.commit();
+        editor.apply();
         super.onStop();
     }
 }
